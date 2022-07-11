@@ -1,9 +1,9 @@
 {
   "name": "@js-mastery-april/server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "app.js",
   "license": "MIT",
-  "type" : "module",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
