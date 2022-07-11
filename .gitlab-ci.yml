@@ -1,0 +1,4 @@
+include:
+  - project: 'javascript/compliance/k8s/gitlab-shared'
+    ref: master
+    file: 'backend-shared.yml'

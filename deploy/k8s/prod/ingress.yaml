@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: '0'
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  creationTimestamp: '2022-04-06T13:24:10Z'
+  generation: 1
+  labels:
+    app: news
+    app.kubernetes.io/instance: news
+  name: news
+  namespace: news
+spec:
+  rules:
+    - host: news.tools.godeltech.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: news-svc
+                port:
+                  number: 8080
+            path: /api(/|$)(.*)
+            pathType: Prefix
