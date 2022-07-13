@@ -5,5 +5,5 @@ resources:
   - ingress.yaml
   - service.yaml
   - config-map.yaml
-namespace: news-dev
+namespace: news-service-dev
 nameSuffix: -dev

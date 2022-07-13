@@ -11,7 +11,7 @@ metadata:
     app: news-service
     app.kubernetes.io/instance: news-service
   name: news-service
-  namespace: news-dev
+  namespace: news-service-dev
 spec:
   rules:
     - host: news.dev.tools.godeltech.com
