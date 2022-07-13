@@ -5,4 +5,4 @@ resources:
   - ingress.yaml
   - service.yaml
   - config-map.yaml
-namespace: news
+namespace: news-service

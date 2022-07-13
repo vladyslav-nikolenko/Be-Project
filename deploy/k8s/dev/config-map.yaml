@@ -6,4 +6,4 @@ metadata:
     app: news-dev
 data:
   ENVIRONMENT: dev
-  APP_NAME: news
+  APP_NAME: news-service

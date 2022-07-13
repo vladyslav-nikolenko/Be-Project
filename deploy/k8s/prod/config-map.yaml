@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: news
+  name: news-service
   labels:
-    app: news
+    app: news-service
 data:
   ENVIRONMENT: prod
-  APP_NAME: news
+  APP_NAME: news-service
   APP_COLOR: green
   ASSETS_DIR: /app/assets
   SALT: ${SALT}

@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: news-dev
-  name: news
+    app: news-service-dev
+  name: news-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: news-dev
+      app: news-service-dev
   template:
     metadata:
       labels:
-        app: news-dev
+        app: news-service-dev
     spec:
       containers:
         - image: image
-          name: news
+          name: news-service
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
-                name: news-dev
+                name: news-service-dev
           livenessProbe:
             httpGet:
               path: /health

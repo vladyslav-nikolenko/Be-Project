@@ -8,9 +8,9 @@ metadata:
   creationTimestamp: '2022-04-06T13:24:10Z'
   generation: 1
   labels:
-    app: news
-    app.kubernetes.io/instance: news
-  name: news
+    app: news-service
+    app.kubernetes.io/instance: news-service
+  name: news-service
   namespace: news-dev
 spec:
   rules:
@@ -19,7 +19,7 @@ spec:
         paths:
           - backend:
               service:
-                name: news-svc-dev
+                name: news-service-svc-dev
                 port:
                   number: 8080
             path: /api(/|$)(.*)

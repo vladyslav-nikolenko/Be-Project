@@ -8,10 +8,10 @@ metadata:
   creationTimestamp: '2022-04-06T13:24:10Z'
   generation: 1
   labels:
-    app: news
-    app.kubernetes.io/instance: news
-  name: news
-  namespace: news
+    app: news-service
+    app.kubernetes.io/instance: news-service
+  name: news-service
+  namespace: news-service
 spec:
   rules:
     - host: news.tools.godeltech.com
@@ -19,7 +19,7 @@ spec:
         paths:
           - backend:
               service:
-                name: news-svc
+                name: news-service-svc
                 port:
                   number: 8080
             path: /api(/|$)(.*)
