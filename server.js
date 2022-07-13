@@ -21,6 +21,10 @@ app.get('/', function (req, res) {
   res.send('Hello World! Test -_- Second Part');
 });
 
+app.get('/health', function (req, res) {
+  res.status(204).send();
+});
+
 app.use('/user', UserRouter); // send all "/user" requests to UserRouter for routing
 app.use('/articles', ArticlesRoutes); // base endpoint for "/articles", the contents of the articles routes
 
