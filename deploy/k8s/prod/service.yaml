@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: news-service
-  name: news-svc
+  name: news-service-svc
 spec:
   ports:
     - port: 8080
