@@ -7,3 +7,4 @@ metadata:
 data:
   ENVIRONMENT: dev
   APP_NAME: news-service
+  DATABASE_URL: ${DATABASE_URL_DEV}
