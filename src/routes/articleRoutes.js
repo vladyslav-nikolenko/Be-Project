@@ -1,27 +1,45 @@
 import { Router } from 'express'; // import router from
-
+import upload from '../middleware/upload.js';
 const router = Router(); // create router to create route bundle
 
 import articlesController from '../controllers/article.controller.js';
 
 //Post Method
-router.post('/postArticle', (req, res) => {
-  articlesController.post(req, res);
-});
+router.post(
+  '/',
+  upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'thumbnail', maxCount: 1 }
+  ]),
+  (req, res) => {
+    console.log(req.files, req.body);
+    articlesController.post(req, res);
+  }
+);
 
 //Get all Method
-router.get('/getArticles', (req, res) => {
+router.get('/', (req, res) => {
   articlesController.get(req, res);
 });
 
 //Get by ID Method
-router.get('/getArticles/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   articlesController.getById(req, res);
 });
 
+//Get by category  Method
+router.get('/categories/:category', (req, res) => {
+  articlesController.getByCategory(req, res);
+});
+
 //Update by ID Method
-router.patch('/editArticle/:id', (req, res) => {
-  articlesController.patch(req, res);
+router.patch('/:id', (req, res) => {
+  articlesController.patchById(req, res);
+});
+
+//Delete by ID Method
+router.delete('/:id', (req, res) => {
+  articlesController.deleteById(req, res);
 });
 
 export default router;

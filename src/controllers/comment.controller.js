@@ -1,8 +1,15 @@
-import articlesService from '../services/articles.services.js';
+import commentsRoutes from '../services/comment.services.js';
 
 async function post(req, res) {
   try {
-    const result = await articlesService.create(req.body, req.files);
+    const comment = {
+      sentBy: req.user.id,
+      text: req.body.text,
+      articleId: req.body.articleId
+    }
+
+    const result = await commentsRoutes.post(comment);
+
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -11,17 +18,7 @@ async function post(req, res) {
 
 async function get(req, res) {
   try {
-    const result = await articlesService.get();
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-}
-
-async function getById(req, res) {
-  try {
-    const { id } = req.params;
-    const result = await articlesService.getById(id);
+    const result = await commentsRoutes.get();
 
     res.status(200).json(result);
   } catch (error) {
@@ -29,10 +26,10 @@ async function getById(req, res) {
   }
 }
 
-async function getByCategory(req, res) {
+async function getByArticleId(req, res) {
   try {
-    const { category } = req.params;
-    const result = await articlesService.getByCategory(category);
+    const { id: articleId } = req.params;
+    const result = await commentsRoutes.getByArticleId(articleId);
 
     res.status(200).json(result);
   } catch (error) {
@@ -45,7 +42,7 @@ async function patchById(req, res) {
     const { id } = req.params;
     const updatedData = req.body;
 
-    const result = await articlesService.patchById(id, updatedData);
+    const result = await commentsRoutes.patchById(id, updatedData);
 
     res.status(200).send(result);
   } catch (error) {
@@ -54,12 +51,11 @@ async function patchById(req, res) {
 }
 
 async function deleteById(req, res) {
-
   try {
     const { id } = req.params;
-    const result = await articlesService.deleteById(id);
+    const result = await commentsRoutes.deleteById(id);
+    res.status(200).send(result);
 
-    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -68,8 +64,7 @@ async function deleteById(req, res) {
 export default {
   post,
   get,
-  getById,
-  getByCategory,
+  getByArticleId,
   patchById,
   deleteById
 };

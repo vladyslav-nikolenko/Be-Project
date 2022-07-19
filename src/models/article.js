@@ -1,15 +1,12 @@
 import mongoose from 'mongoose';
 
 const articleSchema = new mongoose.Schema({
-  category: {
-    label: String,
-    url: String
-  },
-  title: String,
-  content: String,
-  image: String,
-  type: String,
-  thumbnail: String
+  category: { type: String, required: true },
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  image: { type: String, default: '' },
+  thumbnail: { type: String, default: '' },
+  approved: { type: Boolean, default: true },
 });
 
-export default mongoose.model('ArticleData', articleSchema);
+export default mongoose.model('articles', articleSchema);
