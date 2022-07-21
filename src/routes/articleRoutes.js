@@ -7,10 +7,6 @@ import articlesController from '../controllers/article.controller.js';
 //Post Method
 router.post(
   '/',
-  upload.fields([
-    { name: 'image', maxCount: 1 },
-    { name: 'thumbnail', maxCount: 1 }
-  ]),
   (req, res) => {
     console.log(req.files, req.body);
     articlesController.post(req, res);
