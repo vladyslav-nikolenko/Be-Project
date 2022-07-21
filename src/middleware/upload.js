@@ -1,13 +1,11 @@
 import Minio from 'minio';
+import multer from 'multer';
 import moment from 'moment';
-import fs from 'fs';
-import path, { resolve } from 'path';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-// const Minio = require('minio')
-// const { resolve } = require('path')
-
-const accessKey = process.env.ACCESS_KEY;
-const secretKey = process.env.SECRET_KEY;
+const accessKey = 'news-mastery';
+const secretKey = '6#m08g2EqALc';
 
 let client = new Minio.Client({
   endPoint: 'minio.tools.godeltech.com',
@@ -15,46 +13,37 @@ let client = new Minio.Client({
   useSSL: false,
   accessKey,
   secretKey
-})
-// var fileStream = fs.createReadStream(file)
+});
 
-const metaData = {
-  'Content-Type': 'image/x-png',
-}
-const filename = (req, file, cb) => {
-  const date = moment().format('DDMMYYYY-HHmmss_SSS');
-  cb(null, `${date}-${file.originalname}`);
-}
-// client.fPutObject('news-images', filename, resolve(__dirname, `assets/${filename}`), metaData, function (err, etag) {
-//   if (err) {
-//     throw err;
-//   }
-//   console.log(etag)
-// });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-var fileStat = fs.stat(file, function (err, stats) {
-  if (err) { return console.log(err) } client.putObject('news-images', 'news1.png', fileStream, stats.size, function (err, etag) {
-    if (err) {
-      throw err;
+export const fileStat = fileName => {
+  const metaData = {
+    'Content-Type': 'image/x-png'
+  };
+
+  client.fPutObject(
+    'news-images',
+    fileName,
+    resolve(__dirname, `../../images/${fileName}`),
+    metaData,
+    function (err, etag) {
+      if (err) {
+        throw err;
+      }
+      console.log(etag);
     }
-    console.log(etag)
-  });
-})
+  );
+};
 
-export default client;
+const storage = multer.diskStorage({
+  destination: './images/',
+  filename: (req, file, cb) => {
+    const date = moment().format('DDMMYYYY-HHmmss_SSS');
 
-// import multer from 'multer';
-// import moment from 'moment';
+    cb(null, `${date}-${file.originalname}`);
+  }
+});
 
-// const storage = multer.diskStorage({
-//   // destination: '../../data/images',
-//   destination: '../images/',
-//   filename: (req, file, cb) => {
-//     const date = moment().format('DDMMYYYY-HHmmss_SSS');
-//     // cb(null, `./data/images/${date}-${file.originalname}`);
-//     // cb(null, `${date}-${file.originalname}`);
-//     cb(null, `${date}-${file.originalname}`);
-//   }
-// });
-
-// export default multer({ storage: storage });
+export const uploadMulter = multer({ storage: storage });

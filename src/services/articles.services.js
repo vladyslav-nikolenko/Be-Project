@@ -1,25 +1,27 @@
 import articles from '../models/article.js';
-import * as path from 'path';
-import * as fs from 'fs';
-// import multer from 'mutler';
+import { fileStat } from '../middleware/upload.js';
 
 async function create({ title, content, user, category }, files) {
-  // files?.image[0].filename ? `images/${files?.image[0].filename}` : '';
+  const imageName = files?.image[0].filename;
+  const thumbnailName = files?.thumbnail[0].filename;
+
+  fileStat(imageName);
+
+  console.log(imageName);
 
   const data = {
-    category,
+    category: 'all',
     title,
     content,
     user,
-    image: files?.image[0].filename,
-    thumbnail: files?.thumbnail[0].filename
+    image: imageName,
+    thumbnail: thumbnailName
   };
 
   const article = new articles(data);
 
-
   const dataToSave = await article.save();
-    return dataToSave;
+  return dataToSave;
 }
 
 async function get() {
@@ -32,10 +34,10 @@ async function getById(id) {
   return article;
 }
 
-
 async function getByCategory(category) {
-  const categoryUpper = category[0].toUpperCase() + category.slice(1).toLowerCase();
-  const article = await articles.find({'category': categoryUpper});
+  const categoryUpper =
+    category[0].toUpperCase() + category.slice(1).toLowerCase();
+  const article = await articles.find({ category: categoryUpper });
   return article;
 }
 
