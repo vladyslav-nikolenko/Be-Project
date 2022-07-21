@@ -17,9 +17,8 @@ async function create({ title, content, user, category }, files) {
 
   const article = new articles(data);
 
-
   const dataToSave = await article.save();
-    return dataToSave;
+  return dataToSave;
 }
 
 async function get() {
@@ -32,10 +31,17 @@ async function getById(id) {
   return article;
 }
 
+async function getByUserName(userName) {
+  const article = await articles.find({
+    user: userName
+  });
+  return article;
+}
 
 async function getByCategory(category) {
-  const categoryUpper = category[0].toUpperCase() + category.slice(1).toLowerCase();
-  const article = await articles.find({'category': categoryUpper});
+  const categoryUpper =
+    category[0].toUpperCase() + category.slice(1).toLowerCase();
+  const article = await articles.find({ category: categoryUpper });
   return article;
 }
 
@@ -57,5 +63,6 @@ export default {
   getById,
   getByCategory,
   patchById,
-  deleteById
+  deleteById,
+  getByUserName
 };
