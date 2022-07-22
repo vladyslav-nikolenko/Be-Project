@@ -10,7 +10,7 @@ async function create({ title, content, user, category }, files) {
   console.log(imageName);
 
   const data = {
-    category: 'all',
+    category,
     title,
     content,
     user,
