@@ -31,9 +31,9 @@ async function getById(id) {
   return article;
 }
 
-async function getByUserName(userName) {
+async function getByUser(user) {
   const article = await articles.find({
-    user: userName
+    user
   });
   return article;
 }
@@ -61,8 +61,8 @@ export default {
   create,
   get,
   getById,
+  getByUser,
   getByCategory,
   patchById,
-  deleteById,
-  getByUserName
+  deleteById
 };
