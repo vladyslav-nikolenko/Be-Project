@@ -32,6 +32,13 @@ async function getById(id) {
   return article;
 }
 
+async function getByUser(user) {
+  const article = await articles.find({
+    user
+  });
+  return article;
+}
+
 async function getByCategory(category) {
   const categoryUpper =
     category[0].toUpperCase() + category.slice(1).toLowerCase();
@@ -55,6 +62,7 @@ export default {
   create,
   get,
   getById,
+  getByUser,
   getByCategory,
   patchById,
   deleteById

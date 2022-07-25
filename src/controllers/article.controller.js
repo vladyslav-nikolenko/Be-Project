@@ -31,6 +31,17 @@ async function getById(req, res) {
   }
 }
 
+async function getByUser(req, res) {
+  try {
+    const { user } = req.params;
+    const result = await articlesService.getByUser(user);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
 async function getByCategory(req, res) {
   try {
     const { category } = req.params;
@@ -70,6 +81,7 @@ export default {
   post,
   get,
   getById,
+  getByUser,
   getByCategory,
   patchById,
   deleteById

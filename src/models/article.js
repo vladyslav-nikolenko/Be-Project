@@ -7,6 +7,7 @@ const articleSchema = new mongoose.Schema({
   image: { type: String, default: '' },
   thumbnail: { type: String, default: '' },
   approved: { type: Boolean, default: true },
+  user: { type: String, required: true }
 });
 
 export default mongoose.model('articles', articleSchema);
