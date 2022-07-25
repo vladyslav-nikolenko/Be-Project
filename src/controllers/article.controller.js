@@ -3,8 +3,10 @@ import articlesService from '../services/articles.services.js';
 async function post(req, res) {
   try {
     const result = await articlesService.create(req.body, req.files);
+    console.log(result);
     res.status(200).json(result);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 }

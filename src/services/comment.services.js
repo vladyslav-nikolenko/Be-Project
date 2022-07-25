@@ -8,12 +8,17 @@ async function post(data) {
 }
 
 async function get() {
-  const comments = await CommentData.find({approved: true}).populate('sentBy');
+  const comments = await CommentData.find({ approved: true }).populate(
+    'sentBy'
+  );
   return comments;
 }
 
 async function getByArticleId(articleId) {
-  const comment = await CommentData.find({articleId, approved: true }).populate('sentBy');
+  const comment = await CommentData.find({
+    articleId,
+    approved: true
+  }).populate('sentBy');
   return comment;
 }
 

@@ -1,5 +1,5 @@
 import { Router } from 'express'; // import router from
-import upload from '../middleware/upload.js';
+import { fileStat, uploadMulter } from '../middleware/upload.js';
 const router = Router(); // create router to create route bundle
 
 import articlesController from '../controllers/article.controller.js';
@@ -7,12 +7,11 @@ import articlesController from '../controllers/article.controller.js';
 //Post Method
 router.post(
   '/',
-  upload.fields([
+  uploadMulter.fields([
     { name: 'image', maxCount: 1 },
     { name: 'thumbnail', maxCount: 1 }
   ]),
   (req, res) => {
-    console.log(req.files, req.body);
     articlesController.post(req, res);
   }
 );
