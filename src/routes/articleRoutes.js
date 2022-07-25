@@ -22,6 +22,11 @@ router.get('/', (req, res) => {
   articlesController.get(req, res);
 });
 
+//Get by Authors Method
+router.get('/author/:user', (req, res) => {
+  articlesController.getByUser(req, res);
+});
+
 //Get by ID Method
 router.get('/:id', (req, res) => {
   articlesController.getById(req, res);
