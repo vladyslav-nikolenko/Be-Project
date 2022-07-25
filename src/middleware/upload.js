@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const accessKey = 'news-mastery';
 const secretKey = '6#m08g2EqALc';
 
-let client = new Minio.Client({
+const client = new Minio.Client({
   endPoint: 'minio.tools.godeltech.com',
   port: 80,
   useSSL: false,
