@@ -5,9 +5,7 @@ async function create({ title, content, user, category }, files) {
   const imageName = files?.image[0].filename;
   const thumbnailName = files?.thumbnail[0].filename;
 
-  // fileStat([imageName, thumbnailName]);
-  fileStat(imageName);
-  fileStat(thumbnailName);
+  fileStat([imageName, thumbnailName]);
 
   const data = {
     category,

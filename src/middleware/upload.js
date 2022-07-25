@@ -18,23 +18,25 @@ const client = new Minio.Client({
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export const fileStat = fileName => {
+export const fileStat = fileNames => {
   const metaData = {
     'Content-Type': 'image/x-png'
   };
 
-  client.fPutObject(
-    'news-images',
-    fileName,
-    resolve(__dirname, `../../images/${fileName}`),
-    metaData,
-    function (err, etag) {
-      if (err) {
-        throw err;
+  fileNames.map(fileName => {
+    client.fPutObject(
+      'news-images',
+      fileName,
+      resolve(__dirname, `../../images/${fileName}`),
+      metaData,
+      function (err, etag) {
+        if (err) {
+          throw err;
+        }
+        console.log(etag);
       }
-      console.log(etag);
-    }
-  );
+    );
+  });
 };
 
 const storage = multer.diskStorage({
