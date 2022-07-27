@@ -8,7 +8,7 @@ async function post(data) {
 }
 
 async function get() {
-  const comments = await CommentData.find({approved: true}).populate('sentBy');
+  const comments = await CommentData.find({approved: false}).populate('sentBy');
   return comments;
 }
 
@@ -19,13 +19,15 @@ async function getByArticleId(articleId) {
 
 async function patchById(id, updatedData) {
   const options = { new: true };
-  const result = await CommentData.findByIdAndUpdate(id, updatedData, options);
-  result;
+  await CommentData.findByIdAndUpdate(id, updatedData, options);
+  const result = await CommentData.find({approved: false}).populate('sentBy');
+  return result;
 }
 
 async function deleteById(id) {
-  const result = await CommentData.findByIdAndRemove(id);
-  result;
+  await CommentData.findByIdAndRemove(id);
+  const result = await CommentData.find({approved: false}).populate('sentBy');
+  return result;
 }
 
 export default {
