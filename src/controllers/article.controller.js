@@ -3,8 +3,10 @@ import articlesService from '../services/articles.services.js';
 async function post(req, res) {
   try {
     const result = await articlesService.create(req.body, req.files);
+    console.log(result);
     res.status(200).json(result);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 }
@@ -22,6 +24,17 @@ async function getById(req, res) {
   try {
     const { id } = req.params;
     const result = await articlesService.getById(id);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
+async function getByUser(req, res) {
+  try {
+    const { user } = req.params;
+    const result = await articlesService.getByUser(user);
 
     res.status(200).json(result);
   } catch (error) {
@@ -54,7 +67,6 @@ async function patchById(req, res) {
 }
 
 async function deleteById(req, res) {
-
   try {
     const { id } = req.params;
     const result = await articlesService.deleteById(id);
@@ -69,6 +81,7 @@ export default {
   post,
   get,
   getById,
+  getByUser,
   getByCategory,
   patchById,
   deleteById
