@@ -17,7 +17,7 @@ router.post(
 );
 
 //Get all Method
-router.get('/', (req, res) => {
+router.get('/:isApproved', (req, res) => {
   articlesController.get(req, res);
 });
 

@@ -6,7 +6,7 @@ const articleSchema = new mongoose.Schema({
   content: { type: String, required: true },
   image: { type: String, default: '' },
   thumbnail: { type: String, default: '' },
-  approved: { type: Boolean, default: true },
+  approved: { type: Boolean, default: false },
   user: { type: String, required: true }
 });
 
