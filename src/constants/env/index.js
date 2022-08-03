@@ -3,15 +3,15 @@ const PORT = 8080;
 const DATABASE_URL =
   global.envConfig?.DATABASE_URL || 'mongodb://host.docker.internal/mongodb';
 
-const AUTH_SECRET_KEY = global.envConfig?.AUTH_SECRET_KEY || 'gouda2021';
+const AUTH_SECRET_KEY = global.envConfig?.AUTH_SECRET_KEY;
 
 const MINIO_IMAGE_STORAGE =
   global.envConfig?.MINIO_IMAGE_STORAGE ||
   'http://minio.tools.godeltech.com/news-images';
 
-const MINIO_ACCESS_KEY = global.envConfig?.MINIO_ACCESS_KEY || 'news-mastery';
+const MINIO_ACCESS_KEY = global.envConfig?.MINIO_ACCESS_KEY;
 
-const MINIO_SECRET_KEY = global.envConfig?.MINIO_SECRET_KEY || '6#m08g2EqALc';
+const MINIO_SECRET_KEY = global.envConfig?.MINIO_SECRET_KEY;
 
 export {
   PORT,

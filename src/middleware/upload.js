@@ -3,9 +3,11 @@ import multer from 'multer';
 import moment from 'moment';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { MINIO_ACCESS_KEY } from '../constants/env/index.js';
+import { MINIO_SECRET_KEY } from '../constants/env/index.js';
 
-const accessKey = 'news-mastery';
-const secretKey = '6#m08g2EqALc';
+const accessKey = MINIO_ACCESS_KEY;
+const secretKey = MINIO_SECRET_KEY;
 
 const client = new Minio.Client({
   endPoint: 'minio.tools.godeltech.com',
