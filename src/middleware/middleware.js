@@ -1,6 +1,7 @@
 import 'dotenv/config'; // loading env variables
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
+import { AUTH_SECRET_KEY } from '../constants/env/index.js';
 
 // MIDDLEWARE FOR AUTHORIZATION (MAKING SURE THEY ARE LOGGED IN)
 const isLoggedIn = async (req, res, next) => {
@@ -10,7 +11,7 @@ const isLoggedIn = async (req, res, next) => {
       // parse token from header
       const token = req.headers.token; //split the header and get the token
       if (token) {
-        const username = await jwt.verify(token, process.env.SECRET);
+        const username = await jwt.verify(token, AUTH_SECRET_KEY);
         if (username) {
           // store user data in request object
           const user = await User.findOne(username);

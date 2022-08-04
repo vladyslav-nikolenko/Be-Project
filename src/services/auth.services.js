@@ -1,9 +1,7 @@
 import bcrypt from 'bcryptjs'; // import bcrypt to hash passwords
 import jwt from 'jsonwebtoken'; // import jwt to sign tokens
 import User from '../models/user.js'; // import user model
-
-//DESTRUCTURE ENV VARIABLES WITH DEFAULTS
-const { SECRET = 'secret' } = process.env;
+import { AUTH_SECRET_KEY } from '../constants/env/index.js';
 
 async function signup(body) {
   const hashedPassword = await bcrypt.hash(body.password, 10);
@@ -20,7 +18,7 @@ async function signup(body) {
   const user = await User.create(userData);
 
   // send new user as response
-  const token = await jwt.sign({ username: user.username }, SECRET);
+  const token = await jwt.sign({ username: user.username }, AUTH_SECRET_KEY);
   return { token, username: user.username };
 }
 
@@ -34,7 +32,7 @@ async function login(body, res) {
   if (!isMatch) throw new Error(`User or password doesn't match`);
 
   // sign token and send it in response
-  const token = await jwt.sign({ username: user.username }, SECRET);
+  const token = await jwt.sign({ username: user.username }, AUTH_SECRET_KEY);
   return { token, username: user.username };
 }
 
