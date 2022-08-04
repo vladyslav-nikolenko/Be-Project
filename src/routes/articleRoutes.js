@@ -27,7 +27,7 @@ router.get('/author/:user', (req, res) => {
 });
 
 //Get by ID Method
-router.get('/:id', (req, res) => {
+router.get('/article/:id', (req, res) => {
   articlesController.getById(req, res);
 });
 
