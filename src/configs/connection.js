@@ -1,8 +1,6 @@
 import 'dotenv/config'; // load .env variables
 import mongoose from 'mongoose'; //import fresh mongoose object
-
-//DESTRUCTURE ENV VARIABLES
-const { DATABASE_URL } = process.env;
+import { DATABASE_URL } from '../constants/env/index.js';
 
 // CONNECT TO MONGO
 mongoose.connect = mongoose.connect(DATABASE_URL, {
