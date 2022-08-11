@@ -1,0 +1,604 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "m.News",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/user/signup": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Signup route to create a new user",
+        "operationId": "createUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user-body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create a new user",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          },
+          "400": {
+            "description": "User already exist"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Login route to verify a user and get a token",
+        "operationId": "findUserByUsername",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user-body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string",
+              "headers": {
+                "X-Rate-Limit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "calls per hour allowed by the user"
+                },
+                "X-Expires-After": {
+                  "type": "string",
+                  "format": "JWT",
+                  "description": "date in JWT when token expires"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/me": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Login route to verify a user by token",
+        "operationId": "findUserByToken",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Find token and login",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/articles": {
+      "post": {
+        "tags": ["Articles"],
+        "summary": "Add new article",
+        "operationId": "addArticle",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Article object that needs to be added to the article",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/article"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create a new article",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/article"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/articles/{isApproved}":{
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get all articles",
+        "operationId": "GetAllArticles",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "isApproved",
+            "in": "path",
+            "description": "Approved values that need to be considered for filter",
+            "required": true,
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/article"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/articles/author/{user}": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get articles by User",
+        "operationId": "GetArticlesByUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "User values that need to be considered for filter",
+            "required": true,
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/article"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/articles/categories/{category}": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get articles by categories",
+        "operationId": "GetArticlesByCategories",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "description": "Category values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/articles/article/{_id}": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get articles by ID",
+        "operationId": "GetArticleById",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "ID of article to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+              "schema": {
+                "type": "object",
+                "items": {
+                    "$ref": "#/definitions/article"
+              }
+              }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      }
+    },
+      "/articles/{_id}":{
+      "patch": {
+        "tags": ["Articles"],
+        "summary": "Updated article by Id",
+        "operationId": "updatedArticle",
+        "security": [ { "SessionToken": [] } ],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Article object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/article"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "ID of article to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/article"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Articles"],
+        "summary": "Delete article by id",
+        "operationId": "deleteArticle",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Article id to delete",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      }
+    },
+    "/comments": {
+      "post": {
+        "tags": ["Comments"],
+        "summary": "Add new comment for article",
+        "operationId": "addComment",
+        "security": [ { "SessionToken": [] } ],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Comment object that needs to be added to the article",
+            "required": true,
+            "schema": {
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "example": "text of testComment"
+                },
+                "articleId": {
+                  "type": "objectId",
+                  "example": "62d5249401ee0c0cb4b39c9a"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create a new comment",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/comment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Get all comments",
+        "operationId": "GetAllComments",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/comments/{articleId}": {
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Get comments by articleId",
+        "operationId": "getCommentsByArticleId",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "description": "ID of article to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+              "schema": {
+                "type": "array"
+              }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      }
+    },
+    "/comments/{_id}": {
+      "patch": {
+        "tags": ["Comments"],
+        "summary": "Updated comment by Id",
+        "operationId": "updatedComment",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Comment object that needs to be updated to the article",
+            "required": true,
+            "schema": {
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "example": "text of testComment"
+                  }
+                }
+              }
+            },
+            {
+              "name": "_id",
+              "in": "path",
+              "description": "ID of comment to return",
+              "required": true,
+              "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/comment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Comments"],
+        "summary": "Delete comment by id",
+        "operationId": "deleteComment",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Comment id to delete",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/comment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "SessionToken": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "token"
+    }
+  },
+  "definitions": {
+    "user": {
+      "type": "object",
+      "required": ["username", "password"],
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "testUser"
+        },
+        "password": {
+          "type": "string",
+          "example": "123test"
+        },
+        "userType": {
+          "type": "string",
+          "enum": ["guest", "admin"],
+          "default": "guest",
+          "example": "guest"
+        }
+      }
+    },
+    "article": {
+      "type": "object",
+      "required": ["category", "title", "content", "user"],
+      "properties": {
+        "category": {
+          "type": "string",
+          "example": "People"
+        },
+        "title": {
+          "type": "string",
+          "example": "Test-article"
+        },
+        "content": {
+          "type": "string",
+          "example": "Content Test-article"
+        },
+        "image": {
+          "type": "string",
+          "example": ""
+        },
+        "thumbnail": {
+          "type": "string",
+          "example": ""
+        },
+        "approved": {
+          "type": "boolean",
+          "example": "false"
+        },
+        "user": {
+          "type": "string",
+          "example": "JoeSmith"
+        }
+      },
+      "xml": {
+        "name": "article"
+      }
+    },
+    "comment": {
+      "type": "object",
+      "required": ["sentBy", "text", "articleId"],
+      "properties": {
+        "sentBy": {
+          "type": "object",
+          "example": {
+            "$ref": "#/definitions/user"
+        }
+        },
+        "text": {
+          "type": "string",
+          "example": "text of testComment"
+        },
+          "articleId": {
+          "type": "objectId",
+          "example": "62d5249401ee0c0cb4b39c9a"
+        },
+        "approved": {
+          "type": "boolean",
+          "example": "false"
+        }
+
+      }
+    }
+  }
+}
