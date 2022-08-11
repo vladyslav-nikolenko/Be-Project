@@ -13,7 +13,8 @@ async function post(req, res) {
 
 async function get(req, res) {
   try {
-    const result = await articlesService.get();
+    const { isApproved } = req.params;
+    const result = await articlesService.get(isApproved);
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ message: error.message });

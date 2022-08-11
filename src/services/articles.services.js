@@ -22,8 +22,8 @@ async function create({ title, content, user, category }, files) {
   return dataToSave;
 }
 
-async function get() {
-  const result = await articles.find();
+async function get(isApproved = true) {
+  const result = await articles.find({approved: isApproved});
   return result;
 }
 
@@ -48,14 +48,15 @@ async function getByCategory(category) {
 
 async function patchById(id, updatedData) {
   const options = { new: true };
-  const result = await articles.findByIdAndUpdate(id, updatedData, options);
-
-  result;
+  await articles.findByIdAndUpdate(id, updatedData, options);
+  const result = await articles.find({approved: false})
+  return result;
 }
 
 async function deleteById(id) {
-  const result = await articles.findByIdAndRemove(id);
-  result;
+  await articles.findByIdAndRemove(id);
+  const result = await articles.find({approved: false})
+  return result;
 }
 
 export default {

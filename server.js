@@ -6,7 +6,9 @@ import cors from 'cors'; // import cors
 import UserRouter from './src/routes/userRoutes.js'; //import User ArticlesRoutes
 import ArticlesRoutes from './src/routes/articleRoutes.js';
 import CommentsRoutes from './src/routes/commentsRoutes.js';
-import { PORT } from './src/constants/env/index.js';
+
+//DESTRUCTURE ENV VARIABLES WITH DEFAULT VALUES
+const { PORT = 8080 } = process.env;
 
 // Create Application Object
 const app = express();
