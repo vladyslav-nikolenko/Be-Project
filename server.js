@@ -6,6 +6,8 @@ import cors from 'cors'; // import cors
 import UserRouter from './src/routes/userRoutes.js'; //import User ArticlesRoutes
 import ArticlesRoutes from './src/routes/articleRoutes.js';
 import CommentsRoutes from './src/routes/commentsRoutes.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './src/swagger/swagger.json' assert {type: 'json'};
 
 //DESTRUCTURE ENV VARIABLES WITH DEFAULT VALUES
 const { PORT = 8080 } = process.env;
@@ -23,6 +25,7 @@ app.use(
   })
 );
 // ROUTES AND ROUTES
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.get('/', function (req, res) {
   res.send('Hello World! Test -_- Second Part');
 });

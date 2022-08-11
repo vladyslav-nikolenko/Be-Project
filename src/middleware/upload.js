@@ -26,7 +26,8 @@ export const fileStat = fileNames => {
   };
 
   fileNames.map(fileName => {
-    client.fPutObject(
+    if (fileName) {
+      client.fPutObject(
       'news-images',
       fileName,
       resolve(__dirname, `../../images/${fileName}`),
@@ -38,6 +39,7 @@ export const fileStat = fileNames => {
         console.log(etag);
       }
     );
+    }
   });
 };
 
