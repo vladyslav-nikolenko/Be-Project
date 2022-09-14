@@ -5,9 +5,7 @@ const DATABASE_URL =
 
 const AUTH_SECRET_KEY = global.envConfig?.AUTH_SECRET_KEY;
 
-const MINIO_IMAGE_STORAGE =
-  global.envConfig?.MINIO_IMAGE_STORAGE ||
-  'http://minio.tools.godeltech.com/news-images';
+const MINIO_IMAGE_STORAGE = global.envConfig?.MINIO_IMAGE_STORAGE;
 
 const MINIO_ACCESS_KEY = global.envConfig?.MINIO_ACCESS_KEY;
 

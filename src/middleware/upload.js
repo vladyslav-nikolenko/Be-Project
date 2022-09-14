@@ -10,7 +10,7 @@ const accessKey = MINIO_ACCESS_KEY;
 const secretKey = MINIO_SECRET_KEY;
 
 const client = new Minio.Client({
-  endPoint: 'minio.tools.godeltech.com',
+  endPoint: 'testText'
   port: 80,
   useSSL: false,
   accessKey,

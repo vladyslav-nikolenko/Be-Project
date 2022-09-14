@@ -14,7 +14,7 @@ metadata:
   namespace: news-service
 spec:
   rules:
-    - host: news.tools.godeltech.com
+    - host:
       http:
         paths:
           - backend:

@@ -1,4 +1,4 @@
-FROM gitlab.godeltech.com:4567/javascript/compliance/k8s/docker-images/node:latest
+FROM Link on github
 
 COPY ./src /app/src
 COPY ./server.js /app/main.js
